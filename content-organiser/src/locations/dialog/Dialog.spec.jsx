@@ -1,7 +1,7 @@
 import React from 'react';
-import Field from './Field';
+import Dialog from './Dialog';
 import { render } from '@testing-library/react';
-import { mockCma, mockSdk } from '../../test/mocks';
+import { mockCma, mockSdk } from '../../../test/mocks';
 import { vi } from 'vitest';
 
 vi.mock('@contentful/react-apps-toolkit', () => ({
@@ -9,10 +9,10 @@ vi.mock('@contentful/react-apps-toolkit', () => ({
   useCMA: () => mockCma,
 }));
 
-describe('Field component', () => {
+describe('Dialog component', () => {
   it('Component text exists', () => {
-    const { getByText } = render(<Field />);
+    const { getByText } = render(<Dialog />);
 
-    expect(getByText('Hello Entry Field Component (AppId: test-app)')).toBeInTheDocument();
+    expect(getByText('Hello Dialog Component (AppId: test-app)')).toBeInTheDocument();
   });
 });
