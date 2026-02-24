@@ -2,10 +2,15 @@ import {useState, useCallback, useEffect} from "react";
 import { useSDK } from "@contentful/react-apps-toolkit";
 import setUpCma from "../helpers/setup";
 import getAllUsers from "../helpers/getAllUsers";
+import getAllProducts from "../helpers/getAllProducts";
+import { Stack, Heading } from "@contentful/f36-components";
+import ContentTable from "./ContentTable";
 
 const Page = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [users, setUsers] = useState()
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true)
+  const [users, setUsers] = useState([])
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true)
+  const [products, setProducts] = useState([])
 
   const sdk = useSDK();
   const cma = setUpCma(sdk)
@@ -14,17 +19,29 @@ const Page = () => {
     await getAllUsers(cma).then((data) => {
       setUsers(data);
     });
-    setIsLoading(false);
+    setIsLoadingUsers(false);
+  }, [cma]);
+
+  const getProductData = useCallback(async () => {
+    await getAllProducts(cma).then((data) => {
+      setProducts(data);
+    });
+    setIsLoadingProducts(false);
   }, [cma]);
 
   useEffect(() => {
-    if (isLoading) getUserData()
-  }, [isLoading])
+    if (isLoadingUsers) getUserData()
+  }, [isLoadingUsers])
 
-  console.log(users)
+  useEffect(() => {
+    if (isLoadingProducts) getProductData()
+  }, [isLoadingProducts])
 
   return (
-    <div></div>
+    <Stack justifyContent="center" flexDirection="column" margin="spacing2Xl">
+      <Heading>Content Organiser</Heading>
+      <ContentTable products={products} users={users} />
+    </Stack>
   );
 };
 
