@@ -8,7 +8,7 @@ import ContentTable from "./ContentTable";
 
 const Page = () => {
   const [isLoadingUsers, setIsLoadingUsers] = useState(true)
-  const [users, setUsers] = useState()
+  const [users, setUsers] = useState([])
   const [isLoadingProducts, setIsLoadingProducts] = useState(true)
   const [products, setProducts] = useState([])
 
@@ -40,7 +40,7 @@ const Page = () => {
   return (
     <Stack justifyContent="center" flexDirection="column" margin="spacing2Xl">
       <Heading>Content Organiser</Heading>
-      <ContentTable products={products} />
+      <ContentTable products={products} users={users} />
     </Stack>
   );
 };

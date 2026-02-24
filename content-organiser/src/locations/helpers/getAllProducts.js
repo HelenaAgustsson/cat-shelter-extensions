@@ -16,7 +16,7 @@ const getAllProducts = async (cma) => {
   productData.items.forEach((item) => {
     products.push({
       id: item.sys.id,
-      publishedBy: item.sys.id,
+      publishedBy: item.sys.publishedBy.sys.id,
       title: item.fields.title["en-US"],
       slug: item.fields.slug["en-US"],
     });
